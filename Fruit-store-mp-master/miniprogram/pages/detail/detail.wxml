@@ -16,7 +16,7 @@
     <!-- 第二行 -->
     <view class='line2'>
       <view class='price'>价格:￥{{fruitDetail.basicInfo.minPrice}}</view>
-      <view class='purchaseFreq'>浏览 {{fruitDetail.basicInfo.numberSells}} 次</view>
+      <view class='purchaseFreq'>浏览 {{fruitDetail.basicInfo.views}} 次</view>
     </view>
   </view>
 
@@ -29,12 +29,7 @@
             <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
          </view>
     </view>
-    <!-- 评论 -->
-    <view class="goods-content">
 
-      <!-- <view wx:if="{{curIndex === 1}}">{{fruitDetail.service}}</view> -->
-      <view wx:if="{{curIndex === 0}}" class='theDetail'>{{fruitDetail.detail}}</view>
-    </view>
   </view>
 
 
@@ -46,7 +41,10 @@
       <image src="../../images/tabBar/cart.png" mode='scaleToFill'></image>
       <view>心愿单</view>
     </view>
-    <view class='addToCart' bindtap='addLoveByDetail' data-_id="{{fruitDetail._id}}">加入心愿单</view>
+  
+    <view  wx:if="{{!islove}}" class='addToCart' bindtap='addLoveByDetail' data-_id="{{fruitDetail.basicInfo.id}}">加入心愿单</view>
+    <view  wx:else class='addToCart1' >已加入心愿单了，喜欢就下单吧~</view>
+
   </view>
 
   

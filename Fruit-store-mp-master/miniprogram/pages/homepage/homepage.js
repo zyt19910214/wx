@@ -9,19 +9,16 @@ Page({
     swiperImgNo: 1,
     imgSwiperUrl: '',
     fruitInfo: [],
-    goodsinfo:{},
     curPage: 1,
     pageSize: 10,
     loadingMoreHidden: true,
-    typeCat: [
- 
-    ],
+    typeCat: [],
     activeTypeId:0,
     isShow:false,
     openid: ''
   },
   onPageScroll(e) {
-   
+   //console.log('页面滑动',e)
   },
 
   // 获取用户openid
@@ -53,8 +50,7 @@ Page({
 
   // ------------分类展示切换---------
   typeSwitch: function(e) {
-   //console.log(e)
-    console.log(this.data.goodsinfo)
+    //将当前分类存储到activeTypeId，并将页码置为1，清空已存的商品信息
     this.setData({
       activeTypeId: parseInt(e.currentTarget.id),
       loadingMoreHidden:true,
@@ -62,7 +58,6 @@ Page({
       fruitInfo: []
     });
     //获取当前类型下的所有数据
-    //this.onswitch()
     this.getGoodsList(e.currentTarget.id)
   },
 
@@ -81,25 +76,32 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-
-
     // 获取openId
     this.getOpenid();
+   
+  },
 
-    // data = [{ id: 0, name: "全部商品" },
-    //   { id: 1, name: "高档套盒" },
-    //   { id: 2, name: "奶粉" },
-    //   { id: 3, name: "儿童保健品" },
-    //   { id: 4, name: "儿童洗护" },
-    //   { id: 5, name: "奶瓶杯子" },
-    //   { id: 6, name: "成人保健品" },
-    //   { id: 7, name: "大牌彩妆" },
-    //   { id: 8, name: "面膜" },
-    //   { id: 9, name: "护肤品" },
-    //   { id: 10, name: "红酒" },
-    //   { id: 11, name: "生活用品" },
-    //   { id: 12, name: "休闲娱乐" },
-    //   ]
+  onReady: function () {
+
+  },
+
+
+  onShow: function () {
+
+    //获取所有分类
+    this.getTypeList()
+
+    //获取当前所在分类
+    let id = this.data.activeTypeId
+
+    //获取当前分类的
+    this.getGoodsList(id)
+
+   
+  },
+  
+  getTypeList:function(){
+    var that = this
     // ---------加载所有分类-------------
     wx.request({
       url: 'https://api.it120.cc/aoph/shop/goods/category/all',
@@ -112,78 +114,65 @@ Page({
         }
         that.setData({
           typeCat: categories,
-          activeTypeId: 0,
           isShow: true
         });
-        console.log('当前分类为：',that.data.typeCat)
-
+        console.log('当前分类为：', that.data.typeCat)
       }
     })
- 
-  },
-
-  onReady: function () {
-
-  },
-
-
-  onShow: function () {
-    this.onswitch()
-   
-  },
-  
+  }
+  ,
   getGoodsList: function (categoryId, append) {
-    console.log(categoryId)
-    
+    // console.log(categoryId)
     if (categoryId == 0) {
       categoryId = "";
     }
     var that = this;
     wx.showLoading({
-      "mask": true
+      title: '加载中',
     })
+
     wx.request({
       url: 'https://api.it120.cc/aoph/shop/goods/list',
       data: {
         categoryId: categoryId,
         nameLike: '',
-        page:1,
-        pageSize: 20
+        page:that.data.curPage,
+        pageSize: that.data.pageSize
       },
       success: function (res) {
         //console.log(res)
-        wx.hideLoading()
         if (res.data.code == 404 || res.data.code == 700) {
-          let newData = { loadingMoreHidden: false }
-          if (!append) {
-            newData.goods = []
+          that.setData({
+             loadingMoreHidden: false 
+          });
+          if(append){
+            wx.showToast({
+              title: '没有更多啦',
+              icon: '',
+              image: '',
+              duration: 1000,
+            })
           }
-          that.setData(newData);
-          return
+          wx.hideLoading()
+        }else{
+          let goods = [];
+          if (append) {
+            goods = that.data.fruitInfo
+
+          }
+          for (var i = 0; i < res.data.data.length; i++) {
+            goods.push(res.data.data[i]);
+          }
+          that.setData({
+            loadingMoreHidden: true,
+            fruitInfo: goods,
+          });
+          console.log("当前的商品信息：", that.data.fruitInfo)
+          wx.hideLoading()
         }
-        let goods = [];
-        if (append) {
-          goods = that.data.goods
-          
-        }
-        for (var i = 0; i < res.data.data.length; i++) {
-          goods.push(res.data.data[i]);
-        }
-        that.setData({
-          loadingMoreHidden: true,
-          fruitInfo: goods,
-        });
-        console.log(that.data.fruitInfo)
+       
       }
     })
-  },
-  onswitch:function(e){
-
-    let id = this.data.activeTypeId
-    //console.log('33333333')
-    this.data.goodsinfo[this.data.activeTypeId.toString()] = { curPage: 1, goods: [] }
-    //console.log(id)
-    this.getGoodsList(id)
   },
 
   onHide: function () {
@@ -193,76 +182,36 @@ Page({
   onUnload: function () {
 
   },
-  getdata: function (filter){
-    console.log(filter)
-    wx.showLoading({
-      title: '加载中',
-    })
-    
-    console.log(this.data.goodsinfo)
-    let id = this.data.activeTypeId.toString()
-    wx.cloud.callFunction({
-      name: 'pageination',
-      data: {
-        dbName: 'fruit-board',
-        filter: filter,
-        pageIndex: this.data.goodsinfo[id].curPage,
-        pageSize: this.data.pageSize,
-      }
-    }).then(res => {
-      //console.log(res.result.haseMore)
 
-      // if (!res.result.haseMore){
-      //   this.setData({
-      //     loadingMoreHidden: false
-      //   });
-      // }
-      
-      this.data.goodsinfo
-      let goods = [...this.data.goodsinfo[id].goods, ...res.result.data]
-      
-      console.log(goods)
-      let page = this.data.goodsinfo[id].curPage
-      let info = this.data.goodsinfo
-      info[id] = {curPage:page,goods:goods,loadingMoreHidden:res.result.haseMore}
-      console.log(page)
-      this.setData({
-        fruitInfo:goods,
-        goodsinfo:info,
-        isShow: true
-      })
-      wx.hideLoading()
-    })
-  },
   onPullDownRefresh: function () {
+    let that = this
+    wx.startPullDownRefresh({
+    })
     this.setData({
       curPage: 1
     });
-    this.getdata({})
+    console.log('111111111111111111111111111111111111')
+    this.getGoodsList(0)
   
   },
 
   onReachBottom: function () {
-    let info = this.data.goodsinfo
-    if (info[this.data.activeTypeId.toString()].loadingMoreHidden){
-      info[this.data.activeTypeId.toString()].curPage = info[this.data.activeTypeId.toString()].curPage+1;
-      this.getdata({});
+    if(this.data.loadingMoreHidden){
+      let page = this.data.curPage + 1
+      //console.log('当前页数',page)
       this.setData({
-          goodsinfo: info
-      });
-   
+        curPage: page
+      })
+      this.getGoodsList(this.data.activeTypeId, true)
     }else{
       wx.showToast({
         title: '没有更多啦',
         icon: '',
         image: '',
         duration: 500,
-        mask: true,
-        success: function(res) {},
-        fail: function(res) {},
-        complete: function(res) {},
       })
     }
+    
 
   },
 

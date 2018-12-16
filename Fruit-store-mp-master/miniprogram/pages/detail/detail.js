@@ -9,7 +9,8 @@ Page({
   data: {
     fruitDetail: {}, //水果信息
     curIndex: 0,
-    articleID: ""
+    articleID: "",
+    islove:false
   },
 
   // 跳转收藏頁面
@@ -22,22 +23,19 @@ Page({
 
 
 
+
   
   // ------------加入收藏------------
   addLoveByDetail: function (e) {
+    this.setData({
+      islove:true
+    });
     wx.showLoading({
       title: '加载中',
     })
     console.log(e)
-    var self = this
-    app.getInfoWhere('fruit-board', { _id: e.currentTarget.dataset._id },
-      e => {
-        //console.log(e.data["0"]._id)
+    app.isNotRepeteToLove({ id: e.currentTarget.dataset._id, _openid: this.data.openid })
 
-        app.isNotRepeteToLove({ id: e.data["0"]._id, _openid: this.data.openid })
-
-      }
-    )
   },
 
 
@@ -56,6 +54,15 @@ Page({
   onLoad: function (e) {
     wx.showLoading() 
     console.log(e._id)
+  
+    app.getInfoWhere('love', { id: parseInt(e._id)}, res => {
+      if(res.data.length>0){
+        this.setData({
+          islove: true
+        })
+      }
+      
+    })
     var that = this
     wx.request({
       url: 'https://api.it120.cc/aoph/shop/goods/detail',
@@ -85,8 +92,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
+  onShow: function (e1) {
+   
   },
 
   /**

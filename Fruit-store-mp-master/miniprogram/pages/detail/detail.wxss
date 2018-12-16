@@ -120,6 +120,12 @@ page {
   color: white;
   height: 100%
 }
+.detail-nav .addToCart1 {
+  background-color: rgb(236, 87, 76);
+  flex: 1;
+  color: white;
+  height: 100%
+}
 
 
 

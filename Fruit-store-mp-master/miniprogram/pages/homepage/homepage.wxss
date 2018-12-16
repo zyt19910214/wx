@@ -105,7 +105,7 @@ page {
 }
 
 .fruit-item .fruit-info {
-  margin: 15rpx 0 10rpx 10rpx;
+  margin: 30rpx 0 30rpx 30rpx;
 }
 
 .fruit-item .fruit-info .name {
@@ -141,9 +141,10 @@ page {
 }
 
 .fruit-item .fruit-info .price {
-  width: 200rpx;
-  font-size: 25rpx;
-  color: #ee6a50;
+  
+  overflow: hidden;
+  font-size: 24rpx;
+  color:#e64340;
 }
 
 .fruit-item .fruit-info .price .unit {
