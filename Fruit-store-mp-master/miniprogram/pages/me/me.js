@@ -3,50 +3,15 @@ const app = getApp();
 
 Page({
   data: {
-    isAdmin: -1,
-    openid: '',
-    adiminArr: [      
-      'oenS94lGcw7qyDo0AZ7uWBqeo0Lg'
-    ]
+  
   },
   onLoad() {
-    var that = this;
-    that.getOpenid();
-    // console.log(that.data)
+ 
   },
 
   onShow() {
   
   },
-  callPhone(e) {
-    //console.log(e)
-    wx.makePhoneCall({
-      phoneNumber: '15105390367',
-      success: function () {
-        console.log("拨打电话成功！")
-      },
-      fail: function () {
-        console.log("拨打电话失败！")
-      }
-    })
-  },
-  // 获取用户openid
-  getOpenid() {
-    var that = this;
-    wx.cloud.callFunction({
-      name: 'login',
-      complete: res => {
-        console.log('云函数获取到的openid: ', res.result.openid)
-        var openid = res.result.openid;
-        var isAdmin = null;
-        that.setData({
-          openid: openid,
-          isAdmin: that.data.adiminArr.indexOf(openid)
-        })
-      }
-    })
-  },
-
   goToBgInfo: function() {
     wx.navigateTo({
       url: '/pages/bgInfo/bgInfo',
@@ -62,6 +27,22 @@ Page({
       name:"澳品汇义堂店",
       address:"山东省临沂市兰山区义堂中心卫生院东20米路南"
     })
+  }, onShareAppMessage: function () {
+    return {
+      title: 'AO奥品汇',
+      imageUrl: '../../images/icon/fruit.jpg',
+      path: '/pages/homepage/homepage'
+    }
+  }, onPullDownRefresh: function () {
+    wx.showLoading({
+      title: '1111',
+      mask: true,
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+    console.log('111111111111111111111111111111111111')
+  
   }
   
 })

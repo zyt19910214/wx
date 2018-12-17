@@ -27,7 +27,7 @@
         <text class="cart-pro-price">￥{{item.basicInfo.minPrice}}</text>
 
         <!-- 删除 -->
-        <text class="cart-del" bindtap="deleteList" data-index="{{index}}" data-_id="{{item._id}}">×</text>
+        <text class="cart-del" bindtap="deleteList" data-index="{{index}}" data-_id="{{item.basicInfo.id}}">×</text>
       </view>
     </view>
 

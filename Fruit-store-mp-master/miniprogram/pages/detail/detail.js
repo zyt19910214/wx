@@ -7,13 +7,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    fruitDetail: {}, //水果信息
+    fruitDetail: {}, //商品详情
     curIndex: 0,
-    articleID: "",
-    islove:false
+    islove:true
   },
 
-  // 跳转收藏頁面
+  // 跳转收藏页面
   goToCart: function() {
     // console.log('hhhh')
     wx.switchTab({
@@ -27,17 +26,54 @@ Page({
   
   // ------------加入收藏------------
   addLoveByDetail: function (e) {
-    this.setData({
-      islove:true
-    });
     wx.showLoading({
       title: '加载中',
     })
     console.log(e)
-    app.isNotRepeteToLove({ id: e.currentTarget.dataset._id, _openid: this.data.openid })
+    this.isNotRepeteToLove({ id: e.currentTarget.dataset._id, _openid: this.data.openid })
 
   },
 
+
+  // 判断是否已收藏
+  isNotRepeteToLove: function (item) {
+
+    app.getInfoWhere('love', { id: item.id, _openid: item._openid },
+      e => {
+        if (e.data.length != 0) {
+          wx.hideLoading()
+          wx.showToast({
+            title: '许过愿啦！',
+          })
+
+        } else {
+          // 保存收藏
+          app.addRowToSet('love', { id: item.id }, e1 => {
+            console.log(e1)
+
+            wx.request({
+              url: 'https://api.it120.cc/aoph/shop/goods/detail',
+              data: {
+                id: item.id
+              },
+              success: function (res) {
+
+                app.globalData.carts.push(res.data.data) // 进行动态的操作
+
+              }
+            })
+            wx.hideLoading()
+            wx.showToast({
+              title: '许愿成功',
+            })
+            this.setData({
+              islove: true
+            });
+          })
+        }
+      }
+    )
+  },
 
   // 详细信息切换
   bindTap(e) {
@@ -53,13 +89,17 @@ Page({
    */
   onLoad: function (e) {
     wx.showLoading() 
-    console.log(e._id)
-  
+
     app.getInfoWhere('love', { id: parseInt(e._id)}, res => {
       if(res.data.length>0){
         this.setData({
           islove: true
         })
+      }else{
+        this.setData({
+          islove: false
+        })
+        
       }
       
     })

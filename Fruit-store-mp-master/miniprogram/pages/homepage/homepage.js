@@ -37,15 +37,15 @@ Page({
     })
   },
 
-  // ------------加入收藏------------
-  addLoveByHome: function(e) {
-    wx.showLoading({
-      title: '加载中',
-    }) 
-    console.log(e.currentTarget.dataset)
-    app.isNotRepeteToLove({ id: e.currentTarget.dataset._id, _openid: this.data.openid })
+  // // ------------加入收藏------------
+  // addLoveByHome: function(e) {
+  //   wx.showLoading({
+  //     title: '加载中',
+  //   }) 
+  //   console.log(e.currentTarget.dataset)
+  //   app.isNotRepeteToLove({ id: e.currentTarget.dataset._id, _openid: this.data.openid })
     
-  },
+  // },
  
 
   // ------------分类展示切换---------
@@ -73,9 +73,7 @@ Page({
   // ------------生命周期函数------------
   onLoad: function (options) {
     var that = this
-    wx.showLoading({
-      title: '加载中',
-    })
+
     // 获取openId
     this.getOpenid();
    
@@ -87,7 +85,13 @@ Page({
 
 
   onShow: function () {
-
+    wx.showLoading({
+      title: '加载中',
+      mask: true,
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
     //获取所有分类
     this.getTypeList()
 
@@ -116,7 +120,7 @@ Page({
           typeCat: categories,
           isShow: true
         });
-        console.log('当前分类为：', that.data.typeCat)
+        //console.log('当前分类为：', that.data.typeCat)
       }
     })
   }
@@ -127,9 +131,7 @@ Page({
       categoryId = "";
     }
     var that = this;
-    wx.showLoading({
-      title: '加载中',
-    })
+
 
     wx.request({
       url: 'https://api.it120.cc/aoph/shop/goods/list',
@@ -167,7 +169,7 @@ Page({
             loadingMoreHidden: true,
             fruitInfo: goods,
           });
-          console.log("当前的商品信息：", that.data.fruitInfo)
+          //console.log("当前的商品信息：", that.data.fruitInfo)
           wx.hideLoading()
         }
        

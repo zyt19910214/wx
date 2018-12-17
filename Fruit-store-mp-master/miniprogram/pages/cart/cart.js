@@ -3,32 +3,35 @@ const app = getApp()
 
 Page({
   data: {
-    carts: [],               // 收藏列表
+    carts:[],               // 收藏列表
     hasList: true,          // 列表是否有数据
-    selectAllStatus: false,    // 全选状态，默认全选
   },
 
-  
   onLoad(e) {
-
-
+    this.getlove()
   },
 
   onShow() {
-    this.setData({
-      hasList: true,
-      carts:[],
-      loves:[]
-    });
-    wx.showLoading({
-      title: '加载中',
-    })
-    this.getlove()
+   
+    let loves = app.globalData.carts
+    console.log(loves.length)
+    if(loves.length>0){
+      wx.hideLoading()
+      this.setData({  
+        hasList:true,
+        carts: loves
+      })
+    }else{
+      this.setData({
+        hasList: false,
+      });
+    }
+ 
   },
 
 
   onHide: function () {
-    console.log('不执行相关request的回调方法。')
+   
   },
 
 
@@ -39,9 +42,10 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
+    console.log(e)
     const index = e.currentTarget.dataset.index;
     console.log(index)
-    let carts = this.data.carts;
+    let carts = app.globalData.carts;
     app.getInfoWhere('love', { id: e.currentTarget.dataset._id},e3=>{
 
       app.deleteInfoFromSet('love', e3.data[0]['_id'],e4=>{
@@ -51,20 +55,22 @@ Page({
         })
         carts.splice(index, 1);
         this.setData({
-          carts: carts
+          carts:carts
         });
+        app.globalData.carts = carts
 
         if (!carts.length) {
           this.setData({
             hasList: false
           });
         } else {
-
         }
       })
       })
       
    
+  },onPullDownRefresh: function () {
+
   },
 
 
@@ -84,17 +90,18 @@ Page({
             },
             success: function (res) {
               //console.log(res.data.data)
-              let details = that.data.carts
+              let details = app.globalData.carts
               if (JSON.stringify(details).indexOf(JSON.stringify(res.data.data)) == -1) {
                 details.push(res.data.data) // 进行动态的操作
               }
-              console.log(details)
+              app.globalData.carts = details
               that.setData({
-                carts: details,
-              });
+                carts:details
+              })
             }
           })
         }
+        console.log(e.data.length)
         if (e.data.length == 0) {
           that.setData({
             hasList: false

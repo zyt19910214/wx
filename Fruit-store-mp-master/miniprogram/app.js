@@ -14,39 +14,17 @@ App({
       cloudRoot : "clo140d-voyz-cloud-86f82a/",
       tmpNum: 0,
       tempFilePaths: "",
+      carts:[],
       admin: ["oenS94lGcw7qyDo0AZ7uWBqeo0Lg"],
       openId: null,
       appid: 'wxbdafae5940624214',
- 
-  
+
     }
   },
 
   // --------------常用----------------
 
-  // 判断是否已收藏
-  isNotRepeteToLove: function (item) {
 
-    this.getInfoWhere('love', { id:item.id,_openid:item._openid},
-      e => {
-        if (e.data.length != 0) {
-   
-          wx.showToast({
-            title: '许过愿啦！',
-          })
-
-        } else {
-          // 保存收藏
-          this.addRowToSet('love', { id: item.id }, e1 => {
-            console.log(e1)
-            wx.showToast({
-              title: '许愿成功',
-            })
-          })
-        }
-      }
-    )
-  },
 
   // 随机数生成函数
   RndNum: function(n){

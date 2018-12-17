@@ -43,7 +43,7 @@
     </view>
   
     <view  wx:if="{{!islove}}" class='addToCart' bindtap='addLoveByDetail' data-_id="{{fruitDetail.basicInfo.id}}">加入心愿单</view>
-    <view  wx:else class='addToCart1' >已加入心愿单了，喜欢就下单吧~</view>
+    <view  wx:else class='addToCart1' >已加入心愿单啦，喜欢就下单吧~</view>
 
   </view>
 

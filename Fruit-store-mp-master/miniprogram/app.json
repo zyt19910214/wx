@@ -1,6 +1,5 @@
 {
   "cloud": true,
-  "enablePullDownRefresh": true,
   "pages": [
     "pages/homepage/homepage",
     "pages/authentic/index",
