@@ -29,10 +29,11 @@ page {
 
 .detail-info .line1 view {
   height: 60px;
-  overflow: hidden;
   width: 100%px;
+    padding: 0 10px;
+   overflow: hidden;
   box-sizing: border-box;
-  padding: 0 10px;
+
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;

@@ -27,7 +27,7 @@ Page({
     wx.cloud.callFunction({
       name: 'login',
       complete: res => {
-        //console.log('云函数login返回结果:', res)
+        console.log('云函数login返回结果:', res)
         var openid = res.result.openid;
         //console.log('云函数获取到的openid:', openid)
         that.setData({
