@@ -7,9 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="72075786-97d6-4674-a7a3-274001ddbd2a" name="默认的" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/R_User_Library.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../Fruit-store-mp-master/miniprogram/pages/homepage/homepage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../Fruit-store-mp-master/miniprogram/pages/homepage/homepage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nginx_1.13.6/logs/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/../nginx_1.13.6/logs/access.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nginx_1.13.6/logs/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/../nginx_1.13.6/logs/error.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,9 +44,11 @@
     <session id="-252031154">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="3" />
+          <entry key="project.open.time.15" value="1" />
+          <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.2" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
     </session>
@@ -59,8 +61,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vms/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-189">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="21">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
               <folding>
                 <element signature="e#24#61#0" expanded="true" />
               </folding>
@@ -186,7 +188,7 @@
     <option name="x" value="351" />
     <option name="y" value="24" />
     <option name="width" value="1401" />
-    <option name="height" value="1001" />
+    <option name="height" value="1002" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -213,7 +215,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -225,13 +226,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="mysqldb&#9;null&#9;null" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="D:/Studys/work" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
@@ -362,10 +364,9 @@
     <frame x="-7" y="-7" width="1455" height="935" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49565217" visible="true" weight="0.29491767" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49565217" visible="true" weight="0.19183965" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.5043478" side_tool="true" weight="0.20788912" />
-      <window_info anchor="bottom" id="Database Changes" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32917705" />
@@ -382,8 +383,7 @@
       <window_info anchor="bottom" id="Terminal" order="13" sideWeight="0.49573562" weight="0.45326087" />
       <window_info anchor="bottom" id="Python Console" order="14" sideWeight="0.49573562" weight="0.32934782" />
       <window_info anchor="bottom" content_ui="combo" x="20" y="676" width="1914" height="1034" id="运行" order="15" sideWeight="0.48638427" weight="0.37065217" />
-      <window_info anchor="right" id="R Packages" />
-      <window_info anchor="right" id="R Graphics" />
+      <window_info anchor="bottom" id="Database Changes" order="16" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -392,6 +392,8 @@
       <window_info anchor="right" id="SciView" order="5" weight="0.32995737" />
       <window_info anchor="right" id="数据库" order="6" visible="true" weight="0.18923241" />
       <window_info anchor="right" id="Data View" order="7" />
+      <window_info anchor="right" id="R Packages" order="8" />
+      <window_info anchor="right" id="R Graphics" order="9" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -506,8 +508,8 @@
     <entry file="file://C:/Python27/Lib/site-packages/django/core/handlers/base.py" />
     <entry file="file://$PROJECT_DIR$/vms/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-189">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="21">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
           <folding>
             <element signature="e#24#61#0" expanded="true" />
           </folding>

@@ -13,7 +13,6 @@ Page({
 
     this.initEleWidth();
 
-  
     this.getlove()
   },
 
@@ -22,7 +21,6 @@ Page({
     let loves = app.globalData.carts
     //console.log(loves.length)
     if(loves.length>0){
-      wx.hideLoading()
       this.setData({  
         hasList:true,
         carts: loves
@@ -231,7 +229,13 @@ Page({
 
   getlove:function (e){
     let that = this
- 
+      wx.showLoading({
+        title: '加载中',
+        mask: true,
+        success: function(res) {},
+        fail: function(res) {},
+        complete: function(res) {},
+      })
       app.getInfoWhere('love', {}, e => {
         
         //console.log(e.data)

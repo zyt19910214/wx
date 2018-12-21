@@ -22,9 +22,11 @@
             <image class="cart-thumb" src="{{item.basicInfo.pic}}"></image>
           </navigator>
           <!-- 名称 -->
-          <text class="cart-pro-name">{{item.basicInfo.name}}</text>
+          <view class="cart-pro-name">{{item.basicInfo.name}}</view>
           <!-- 价格 -->
           <text class="cart-pro-price">￥{{item.basicInfo.minPrice}}</text>
+           <!-- 状态 -->
+          <text class="cart-pro-status">在售</text>
         </view>
         <!-- 删除 -->
         <view data-index="{{index}} " bindtap = "deleteList" class="inner del" data-index="{{index}}" data-_id="{{item.basicInfo.id}}" >删除</view>
