@@ -12,6 +12,11 @@ Page({
   onShow() {
   
   },
+  callPhone(){
+    wx.makePhoneCall({
+      phoneNumber: '15105390367',
+    })
+  },
   goToBgInfo: function() {
     wx.navigateTo({
       url: '/pages/bgInfo/bgInfo',

@@ -12,13 +12,15 @@ import logging
 import time
 import random
 from functools import wraps
+import  uuid
+import os
+from django.core.files.storage import FileSystemStorage
 
 logger = logging.getLogger('django')
 from JWT import JWT
 jwt = JWT()
-
+import re
 # 会员增删改查
-
 
 @jwt.verify_bearer_token()
 def list_vip_person(req):
@@ -241,9 +243,10 @@ def list_good(req):
     """
     data = req.GET.copy()
     sql = 'select a.*,b.name as type from good a INNER JOIN good_category b ON a.good_category_id = b.id ORDER BY uploadtime desc'
-    if 'title' in data or 'label' in data:
+    if 'title' in data or 'category' in data:
         good_name = data['title']
-        good_type = data['label']
+        good_type = data['category']
+        print(good_type)
         if good_name != '' and good_type == '':
             sql = "select a.*,b.`name` as type from(select * from good where `name`='%s')a INNER JOIN good_category b ON a.good_category_id = b.id ORDER BY a.uploadtime desc"%(good_name)
         elif good_name == '' and good_type != '':
@@ -253,7 +256,6 @@ def list_good(req):
         else:
             pass
     db = Mysql()
-
     g_list = []
     query_result = db.getAll(sql)
     db.dispose()
@@ -325,8 +327,8 @@ def add_good(req):
             }
             logger.debug('添加失败,商品已存在')
         else:
-            count = str(int(data['add_count'])+int(data['count']))
-            sql = "INSERT INTO `good` (`name`, `good_category_id`, `price`, `uploadtime`, `status`,`origin_price`) VALUES ('%s', '%s', '%s', now(), '%s','%s');"%(data['title'],data['type'],data['price'],count,data['origin_price'])
+            # count = str(int(data['add_count'])+int(data['count']))
+            sql = "INSERT INTO `good` (`name`, `good_category_id`, `price`, `uploadtime`, `status`,`origin_price`) VALUES ('%s', '%s', '%s', now(), '%s','%s');"%(data['title'],data['type'],data['price'],data['count'],data['origin_price'])
             logger.debug(sql)
             dd = db.insertOne(sql)
             db.dispose()
@@ -1122,4 +1124,50 @@ def change_assword(req):
 
             }
         }
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+def upload_image(req):
+
+    if req.method == "POST" and req.FILES.get('file'):
+        try:
+            myfile = req.FILES.get('file')
+            fs = FileSystemStorage()
+            rname = str(uuid.uuid1())+'.'+myfile.name.split('.')[-1]
+            filename = fs.save(os.getcwd()+'/static/images/'+rname,myfile)
+            cmd ="fdfs_test ../static/client.conf upload %s" % myfile
+            print(cmd)
+            std = os.popen(cmd).read()
+            print('*********** fastdfs excute start ***********')
+            print(std)
+            print('*********** fastdfs excute end ***********')
+            match = re.search('.*?example file url: (\S+)', std)
+            if match:
+                download_url = match.group(1)
+                response = dict()
+                response['url'] = download_url
+                print(response)
+            print(os.getcwd())
+            resp = {
+                "code": 0
+                , "msg": "success"
+                , "data": {
+                    "image_name":rname
+                }
+            }
+        except Exception as e:
+            print(e)
+
+
+    else:
+        resp = {
+            "code": 1
+            , "msg": "failed"
+            , "data": {
+
+            }
+        }
+
+
+
     return HttpResponse(json.dumps(resp), content_type="application/json")

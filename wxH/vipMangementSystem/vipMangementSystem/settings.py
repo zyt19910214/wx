@@ -34,7 +34,7 @@ LOGGING = {
         'default': {
             'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
-            'filename': '/Study/VMS/vipMangementSystem/log/all.log',     #日志输出文件
+            'filename': '/wx/wxH/vipMangementSystem/log/all.log',     #日志输出文件
             'maxBytes': 1024*1024*5,                  #文件大小
             'backupCount': 5,                         #备份份数
             'formatter':'standard',                   #使用哪种formatters日志格式
@@ -42,7 +42,7 @@ LOGGING = {
         'error': {
             'level':'ERROR',
             'class':'logging.handlers.RotatingFileHandler',
-            'filename': '/Study/VMS/vipMangementSystem/log/error.log',
+            'filename': '/wx/wxH/vipMangementSystem/log/error.log',
             'maxBytes':1024*1024*5,
             'backupCount': 5,
             'formatter':'standard',
@@ -55,7 +55,7 @@ LOGGING = {
         'request_handler': {
             'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
-            'filename': '/Study/VMS/vipMangementSystem/log/script.log',
+            'filename': '/wx/wxH/vipMangementSystem/log/script.log',
             'maxBytes': 1024*1024*5,
             'backupCount': 5,
             'formatter':'standard',
@@ -63,7 +63,7 @@ LOGGING = {
         'scprits_handler': {
             'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
-            'filename':'/Study/VMS/vipMangementSystem/log/script.log',
+            'filename':'/wx/wxH/vipMangementSystem/log/script.log',
             'maxBytes': 1024*1024*5,
             'backupCount': 5,
             'formatter':'standard',
@@ -129,13 +129,13 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+
 ]
 
 ROOT_URLCONF = 'vipMangementSystem.urls'
@@ -207,3 +207,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+

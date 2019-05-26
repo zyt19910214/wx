@@ -5,10 +5,10 @@ echo ==================begin========================
  
 cls 
 ::ngxin 所在的盘符
-set NGINX_PATH=D:
+set NGINX_PATH=E:
  
 ::nginx 所在目录
-set NGINX_DIR=D:\wx\wxH\nginx_1.13.6\
+set NGINX_DIR=E:\wx\wxH\nginx_1.13.6\
 color 0a 
 TITLE Nginx 管理程序增强版
  

@@ -13,13 +13,13 @@ layui.define(['laytpl', 'layer', 'element', 'util'], function(exports){
     ,engine: '.html' //视图文件后缀名
     ,pageTabs: false //是否开启页面选项卡功能。单页版不推荐开启
 
-    ,name: 'Mothanty 桌游轰趴馆'
+    ,name: 'Ao澳品汇后台管理系统'
     ,tableName: 'layuiAdmin' //本地存储表名
     ,MOD_NAME: 'admin' //模块事件名
 
     ,debug: true //是否开启调试模式。如开启，接口异常时会抛出异常 URL 等信息
 
-    ,interceptor: false //是否开启未登入拦截
+    ,interceptor: true //是否开启未登入拦截
     ,http:'http://127.0.0.1:8888/'
 
     //自定义请求字段

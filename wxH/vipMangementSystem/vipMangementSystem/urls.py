@@ -35,6 +35,7 @@ from vms.views import manager_login as views_manager_login
 from vms.views import manager_logout as views_manager_logout
 from vms.views import get_now_login_name as views_get_now_login_name
 from vms.views import change_assword as views_change_assword
+from vms.views import upload_image as views_upload_image
 urlpatterns = [
 
     url(r'^listVipPerson/$', views_list_vip_person),
@@ -58,6 +59,7 @@ urlpatterns = [
     url(r'^managerLogout/$', views_manager_logout),
     url(r'^nowLogin/$', views_get_now_login_name),
     url(r'^changePassword/$', views_change_assword),
+    url(r'^uploadImage/$',views_upload_image)
 
 
 
